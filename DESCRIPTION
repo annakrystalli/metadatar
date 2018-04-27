@@ -9,3 +9,5 @@ LazyData: true
 ByteCompile: true
 Suggests: 
     gapminder
+URL: https://github.com/annakrystalli/metadatar
+BugReports: https://github.com/annakrystalli/metadatar/issues
