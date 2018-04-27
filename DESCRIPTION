@@ -1,6 +1,6 @@
 Package: metadatar
 Version: 0.0.0.9000
-Title: Tools for creating metadata files for reproducible research.
+Title: Tools for creating metadata files for reproducible research
 Description: Tools for creating a variety of metadata files appropriate for reproducible research. 
 Authors@R: person("Anna", "Krystalli", email = "annakrystalli@googlemail.com", role = c("aut", "cre"))
 License: MIT + file LICENSE
@@ -11,3 +11,4 @@ Suggests:
     gapminder
 URL: https://github.com/annakrystalli/metadatar
 BugReports: https://github.com/annakrystalli/metadatar/issues
+RoxygenNote: 6.0.1
