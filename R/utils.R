@@ -7,6 +7,7 @@
 #' @param factor_cols character string or vector of names of columns containing factors
 #' @param sep separator used to separate codes and definitions for each level in
 #'  the metadata table
+#' @param meta_tbl a metadata table associated with df
 #'
 #' @return a dataframe consiting of one row per column of the input df. Columns
 #'  represent minimum metadata requirements.
@@ -53,6 +54,25 @@ create_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
     }
 
     return(meta)
+}
+
+#' @export
+#' @rdname create_meta_shell
+update_meta_tbl <- function(df, meta_tbl, factor_cols = NULL, sep = ";") {
+    if(all(names(df) %in% meta_tbl$attributeName) &
+       all(meta_tbl$attributeName %in% names(df))){return(meta_tbl)}
+
+    if(!all(names(df) %in% meta_tbl$attributeName)){
+        add_cols <- names(df)[!names(df) %in% meta_tbl$attributeName]
+        meta_tbl <- rbind(meta_tbl, create_meta_shell(df[, add_cols, drop = F]))
+    }
+    if(!all(meta_tbl$attributeName %in% names(df))){
+        meta_tbl <- meta_tbl[meta_tbl$attributeName %in% names(df),]
+    }
+    meta_tbl <- meta_tbl[match(names(df), meta_tbl$attributeName),]
+    row.names(meta_tbl) <- NULL
+
+    meta_tbl
 }
 
 #' Extract attribute table
@@ -105,3 +125,6 @@ collapse_factor_levels <- function(x, sep = ";"){
         paste(as.character(sort(unique(x))), collapse = sep)
     }
 }
+
+
+

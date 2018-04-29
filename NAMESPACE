@@ -3,3 +3,4 @@
 export(create_meta_shell)
 export(extract_attr_tbl)
 export(extract_factors_tbl)
+export(update_meta_tbl)

@@ -2,9 +2,12 @@
 % Please edit documentation in R/utils.R
 \name{create_meta_shell}
 \alias{create_meta_shell}
+\alias{update_meta_tbl}
 \title{Create attribute shell}
 \usage{
 create_meta_shell(df, factor_cols = NULL, sep = ";")
+
+update_meta_tbl(df, meta_tbl, factor_cols = NULL, sep = ";")
 }
 \arguments{
 \item{df}{a dataframe of data for which metadata attribute table is to be created}
@@ -13,6 +16,8 @@ create_meta_shell(df, factor_cols = NULL, sep = ";")
 
 \item{sep}{separator used to separate codes and definitions for each level in
 the metadata table}
+
+\item{meta_tbl}{a metadata table associated with df}
 }
 \value{
 a dataframe consiting of one row per column of the input df. Columns
