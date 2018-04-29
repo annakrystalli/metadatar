@@ -99,6 +99,7 @@ get_meta_factors <- function(meta_tbl, sep =";") {
     return(factors)
 }
 
+# extract factor data from a vector and return a collapsed string
 collapse_factor_levels <- function(x, sep = ";"){
     if(is.factor(x)){paste(levels(x), collapse = sep)}else{
         paste(as.character(sort(unique(x))), collapse = sep)
