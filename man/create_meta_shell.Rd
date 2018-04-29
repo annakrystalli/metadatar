@@ -2,30 +2,26 @@
 % Please edit documentation in R/utils.R
 \name{create_meta_shell}
 \alias{create_meta_shell}
-\alias{update_meta_tbl}
-\title{Create attribute shell}
+\title{Create metadata shell}
 \usage{
 create_meta_shell(df, factor_cols = NULL, sep = ";")
-
-update_meta_tbl(df, meta_tbl, factor_cols = NULL, sep = ";")
 }
 \arguments{
 \item{df}{a dataframe of data for which metadata attribute table is to be created}
 
-\item{factor_cols}{character string or vector of names of columns containing factors}
+\item{factor_cols}{character string or vector of names of columns containing factors
+Code and level information is extracted auromatically from factor columns.}
 
 \item{sep}{separator used to separate codes and definitions for each level in
 the metadata table}
-
-\item{meta_tbl}{a metadata table associated with df}
 }
 \value{
 a dataframe consiting of one row per column of the input df. Columns
  represent minimum metadata requirements.
 }
 \description{
-Create shell metadata table of variable attributes for a dataset. The function attempts to guess
-guess the values where possible. The rest will need completing manually.
+Create metadata table shell of variable attributes from a dataset. The function attempts to
+guess values where possible. The rest require completing manually
 }
 \examples{
 \dontrun{
