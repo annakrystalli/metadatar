@@ -12,3 +12,5 @@ Suggests:
 URL: https://github.com/annakrystalli/metadatar
 BugReports: https://github.com/annakrystalli/metadatar/issues
 RoxygenNote: 6.0.1
+Imports: 
+    tibble
