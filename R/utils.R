@@ -4,6 +4,9 @@
 #' Create shell metadata table of variable attributes for a dataset. The function attempts to guess
 #' guess the values where possible. The rest will need completing manually.
 #' @param df a dataframe of data for which metadata attribute table is to be created
+#' @param factor_cols character string or vector of names of columns containing factors
+#' @param sep separator used to separate codes and definitions for each level in
+#'  the metadata table
 #'
 #' @return a dataframe consiting of one row per column of the input df. Columns
 #'  represent minimum metadata requirements.
@@ -14,7 +17,7 @@
 #' library(gapminder)
 #' get_meta_shell(gapminder)
 #' }
-get_meta_shell <- function(df){
+get_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
     rows <- ncol(df)
     meta <- data.frame(attributeName = rep(NA, times = rows),
                        attributeDefinition = rep(NA, times = rows),
@@ -32,6 +35,22 @@ get_meta_shell <- function(df){
     meta$attributeName <- names(df)
     meta$columnClasses <- sapply(df, class)
     meta$columnClasses[meta$columnClasses == "integer"] <- "numeric"
+
+    if(any(sapply(df, FUN = is.factor))){
+        factor_cols <- unique(c(factor_cols,
+                                names(df)[sapply(df, FUN = is.factor)]))
+    }
+
+    if(!is.null(factor_cols)){
+        if(!all(factor_cols %in% names(df))){
+            stop(factor_cols[which(!factor_cols %in% names(df))],
+                 " not a valid colname")
+        }
+        for(col in factor_cols){
+            meta[meta$attributeName == col,c("code", "levels")] <-
+                collapse_factor_levels(df[,col, drop = T], sep)
+        }
+    }
 
     return(meta)
 }
@@ -78,4 +97,10 @@ get_meta_factors <- function(meta_tbl, sep =";") {
         factors <- rbind(factors, f_tbl)
     }
     return(factors)
+}
+
+collapse_factor_levels <- function(x, sep = ";"){
+    if(is.factor(x)){paste(levels(x), collapse = sep)}else{
+        paste(as.character(sort(unique(x))), collapse = sep)
+    }
 }
