@@ -1,5 +1,5 @@
 
-#' Get attribute shell
+#' Create attribute shell
 #'
 #' Create shell metadata table of variable attributes for a dataset. The function attempts to guess
 #' guess the values where possible. The rest will need completing manually.
@@ -15,9 +15,9 @@
 #' @examples
 #' \dontrun{
 #' library(gapminder)
-#' get_meta_shell(gapminder)
+#' create_meta_shell(gapminder)
 #' }
-get_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
+create_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
     rows <- ncol(df)
     meta <- data.frame(attributeName = rep(NA, times = rows),
                        attributeDefinition = rep(NA, times = rows),
@@ -83,7 +83,7 @@ extract_attr_tbl <- function(meta_tbl) {
 #'  an EML attributeList
 #' @export
 #'
-get_meta_factors <- function(meta_tbl, sep =";") {
+extract_factors_tbl <- function(meta_tbl, sep =";") {
     meta_tbl[] <- lapply(meta_tbl, as.character)
     factors <- NULL
     vars <- meta_tbl$attributeName[meta_tbl$columnClasses %in% c("ordered", "factor")]
