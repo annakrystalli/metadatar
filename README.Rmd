@@ -14,14 +14,15 @@ knitr::opts_chunk$set(
 ```
 # metadatar
 
-The goal of metadatar is to ...
+The goal of metadatar is to 
 
 ## Installation
 
-You can install the released version of metadatar from [CRAN](https://CRAN.R-project.org) with:
+You can install the developent version of metadatar from GitHub with:
 
 ``` r
-install.packages("metadatar")
+#install.packages("devtools")
+devtools::install_github("annakrystalli/metadatar")
 ```
 
 ## Example
@@ -31,7 +32,7 @@ This is a basic example which shows you how to solve a common problem:
 ```{r example}
 library(gapminder)
 library(metadatar)
-get_meta_shell(gapminder)
+create_meta_shell(gapminder)
 ```
 
 
