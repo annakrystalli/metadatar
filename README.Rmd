@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # metadatar
 
-The goal of metadatar is to 
+The goal of metadatar is to help produce minimum metadata files to document datasets in simple formats that can form building blocks of more complex metadata formats (eg. EML, rdf). 
 
 ## Installation
 
@@ -25,16 +25,78 @@ You can install the developent version of metadatar from GitHub with:
 devtools::install_github("annakrystalli/metadatar")
 ```
 
+
+
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to create a metadata table for the [**gapminder**](https://github.com/jennybc/gapminder) dataset
 
 ```{r example}
 library(gapminder)
 library(metadatar)
-create_meta_shell(gapminder)
+str(gapminder)
 ```
 
+
+```{r}
+meta_shell <- mt_create_meta_shell(gapminder)
+knitr::kable(meta_shell)
+```
+
+
+
+I've focused on recognized column headers to make it easier to create an EML object down the line and on the core columns required but additional ones can be added.
+
+
+### Attributes associated with all variables: 
+
+- attributeName (required, free text field) 
+- attributeDefinition (required, free text field)
+- columnClasses (required, `"numeric"`, `"character"`, `"factor"`, `"ordered"`, 
+    or `"Date"`, case sensitive)
+
+<br>
+
+
+### `columnClasses` dependant attributes 
+
+- For `numeric` (ratio or interval) data:
+    - unit (required, see [eml-unitTypeDefinitions](https://knb.ecoinformatics.org/#external//emlparser/docs/eml-2.1.1/./eml-unitTypeDefinitions.html) and [working with units](https://github.com/ropensci/EML/blob/master/vignettes/working-with-units.Rmd))
+- For `character` (textDomain) data: 
+    - definition (required)
+- For `dateTime` data: 
+    - formatString (required)
+    e.g for date `11-03-2001` formatString would be `"DD-MM-YYYY"`
+<br>
+
+- I use the columns `code` and `levels` to store information on factors. I use `";"` to separate code and level descriptions. These can be extracted by `metadatar` function `mt_extract_attr_factors()` later on.
+
+
+## Complete metadata table
+
+```{r, message=FALSE, warning=FALSE}
+meta_df <- readr::read_csv(system.file("extdata", "gapminder_meta.csv", package="metadatar"))
+```
+
+
+```{r}
+knitr::kable(meta_df)
+```
+
+## Extracting factors
+
+```{r}
+mt_extract_factors_tbl(meta_df)
+```
+
+
+## Data visualisation utilities
+
+Create more descriptive variable labels for plot axes/titles or tables
+
+```{r}
+mt_label(meta_df, var = "gdpPercap")
+```
 
 
 ***
