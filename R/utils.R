@@ -18,7 +18,7 @@
 #' library(gapminder)
 #' create_meta_shell(gapminder)
 #' }
-create_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
+mt_create_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
     rows <- ncol(df)
     meta <- data.frame(attributeName = rep(NA, times = rows),
                        attributeDefinition = rep(NA, times = rows),
@@ -72,13 +72,13 @@ create_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
 #' deprecated rows trimmed.
 #'
 #' @export
-update_meta_tbl <- function(df, meta_tbl, factor_cols = NULL, sep = ";") {
+mt_update_meta_tbl <- function(df, meta_tbl, factor_cols = NULL, sep = ";") {
     if(all(names(df) %in% meta_tbl$attributeName) &
        all(meta_tbl$attributeName %in% names(df))){return(meta_tbl)}
 
     if(!all(names(df) %in% meta_tbl$attributeName)){
         add_cols <- names(df)[!names(df) %in% meta_tbl$attributeName]
-        meta_tbl <- rbind(meta_tbl, create_meta_shell(df[, add_cols, drop = F]))
+        meta_tbl <- rbind(meta_tbl, mt_create_meta_shell(df[, add_cols, drop = F]))
     }
     if(!all(meta_tbl$attributeName %in% names(df))){
         meta_tbl <- meta_tbl[meta_tbl$attributeName %in% names(df),]
@@ -98,7 +98,7 @@ update_meta_tbl <- function(df, meta_tbl, factor_cols = NULL, sep = ";") {
 #'  an EML attributeList
 #' @export
 #'
-extract_attr_tbl <- function(meta_tbl) {
+mt_extract_attr_tbl <- function(meta_tbl) {
     attr_hd <- c("attributeName", "attributeDefinition", "columnClasses", "numberType",
                  "unit", "minimum", "maximum", "formatString", "definition")
     out <- meta_tbl[,attr_hd]
@@ -117,7 +117,7 @@ extract_attr_tbl <- function(meta_tbl) {
 #'  an EML attributeList
 #' @export
 #'
-extract_factors_tbl <- function(meta_tbl, sep =";") {
+mt_extract_factors_tbl <- function(meta_tbl, sep =";") {
     meta_tbl[] <- lapply(meta_tbl, as.character)
     factors <- NULL
     vars <- meta_tbl$attributeName[meta_tbl$columnClasses %in% c("ordered", "factor")]
