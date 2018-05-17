@@ -4,3 +4,5 @@
 ^README\.Rmd$
 ^CODE_OF_CONDUCT\.md$
 ^\.github$
+^data-raw$
+^\.DS_Store$
