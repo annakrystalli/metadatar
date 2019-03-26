@@ -20,4 +20,7 @@ RoxygenNote: 6.1.1
 Imports: 
     tibble (>= 1.4.2),
     magrittr,
-    units
+    units,
+    crayon,
+    clisymbols,
+    clipr
