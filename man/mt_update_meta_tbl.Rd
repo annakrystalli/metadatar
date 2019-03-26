@@ -26,3 +26,4 @@ Update the metadata table of a dataset. The function will identify variable colu
 for which rows are missing in meta_tbl and append new rows for each. It will also
 remove any deprecated rows which do not match columns in the dataset.
 }
+\concept{metadata table utilities}

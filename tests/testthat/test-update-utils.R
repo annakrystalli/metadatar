@@ -4,8 +4,7 @@ library(dplyr)
 
 df <- gapminder::gapminder
 meta_shell <- mt_create_meta_shell(gapminder::gapminder)
-meta_tbl <- readr::read_csv(file.path(here::here("inst", "extdata",
-                                                 "gapminder_meta.csv")))
+meta_tbl <- readr::read_csv(system.file("extdata", "gapminder_meta.csv", package = "metadatar"))
 
 test_that("check_empty indentifies meta_tbl vars with factor data", {
     expect_equal(input_meta_fields(meta_tbl),
@@ -35,15 +34,16 @@ test_that("test check overwrite on incompleted data",{
 
 
 test_that("factors updated correctly", {
+    factor_check <- readRDS(system.file("test-dat","factor_check.rds", package = "metadatar"))
     expect_equal(mt_update_factors(df, meta_shell, factor_cols = NULL, overwrite = F),
-                 readRDS(here::here("inst","test-dat","factor_check.rds")))
+                 factor_check)
 
     expect_error(mt_update_factors(df, meta_tbl, factor_cols = NULL, overwrite = F),
                  "Action would overwrite current factor metadata,
                       use overwrite = T to override this")
 
     expect_equal(mt_update_factors(df, meta_shell, factor_cols = NULL, overwrite = F),
-                 readRDS(here::here("inst","test-dat","factor_check.rds")))
+                 factor_check)
 
     # test data with no factors
     df_clear <- df
@@ -54,7 +54,7 @@ test_that("factors updated correctly", {
     expect_equal(mt_update_factors(df_clear, meta_clear,
                                    factor_cols = c("country", "continent"),
                                    overwrite = F),
-                 readRDS(here::here("inst","test-dat","factor_check.rds")))
+                 factor_check)
 
     # test setting factors through the metadata table
     meta_semi <- meta_clear %>%
@@ -65,6 +65,6 @@ test_that("factors updated correctly", {
     expect_equal(mt_update_factors(df_clear, meta_semi,
                                    factor_cols = get_factors_meta(meta_semi),
                                    overwrite = F),
-                 readRDS(here::here("inst","test-dat","factor_check.rds")))
+                 factor_check)
 
 })

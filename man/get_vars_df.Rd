@@ -8,8 +8,6 @@ get_vars_df(df)
 }
 \arguments{
 \item{df}{a dataframe of data for which metadata attribute table is to be created}
-
-\item{meta_tbl}{a metadata table associated with df}
 }
 \value{
 character vectors of variables names
@@ -23,6 +21,7 @@ functions appended `df` extract information from a `df` of the data,
 }
 \examples{
 \dontrun{
+df <- gapminder::gapminder
 get_vars_df(df)
 get_vars_meta(meta_tbl)
 get_factors_df(df)

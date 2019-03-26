@@ -19,3 +19,12 @@ Extract useful metadata from data and metadata tables
 functions appended `df` extract information from a `df` of the data,
  while those appended `meta` from the `meta_tbl` containing the attribute metadata.
 }
+\examples{
+\dontrun{
+df <- gapminder::gapminder
+get_vars_df(df)
+get_vars_meta(meta_tbl)
+get_factors_df(df)
+get_factors_meta(meta_tbl)
+}
+}

@@ -61,7 +61,7 @@ mt_create_meta_shell <- function(df, factor_cols = NULL, sep = ";"){
 #' @return an updated meta_tbl with rows added for new df columns and any
 #' deprecated rows trimmed.
 #'
-#' @family \code(meta_tbl) utilities
+#' @family metadata table utilities
 #' @export
 mt_update_meta_tbl <- function(df, meta_tbl, factor_cols = NULL, sep = ";") {
     if(all(names(df) %in% meta_tbl$attributeName) &
@@ -84,13 +84,13 @@ mt_update_meta_tbl <- function(df, meta_tbl, factor_cols = NULL, sep = ";") {
 
 
 #' @inherit mt_update_meta_tbl
+#' @param overwrite logical. Whether to overwrite already existing metadata entries
 #' @export
 #' @examples
 #' \dontrun{
 #' library(gapminder)
 #' df <- gapminder::gapminder
-#' meta_tbl <- readr::read_csv(file.path(here::here("inst", "extdata",
-#'                                                  "gapminder_meta.csv")))
+#' meta_tbl <- readr::read_csv(system.file("extdata", "gapminder_meta.csv", package = "metadatar"))
 #' # update metadata for factor columns from levels
 #' mt_update_factors(df, meta_tbl, overwrite = F)
 #' # update metadata for columns indicated as factors in the metadata table
@@ -204,14 +204,13 @@ check_empty <- function(data_col, meta_tbl,
 }
 
 input_meta_fields <- function(meta_tbl){
-    names(meta_tbl) %>% magrittr::extract(! . %in% c("attributeName",
-                                                     "columnClasses"))
+    magrittr::extract(names(meta_tbl), !names(meta_tbl) %in% c("attributeName",
+                                                               "columnClasses"))
 }
 
 #' Extract useful metadata from data and metadata tables
 #'
 #' @param df a dataframe of data for which metadata attribute table is to be created
-#' @param meta_tbl a metadata table associated with df
 #'
 #' @return character vectors of variables names
 #' @details functions appended `df` extract information from a `df` of the data,
@@ -220,6 +219,7 @@ input_meta_fields <- function(meta_tbl){
 #'
 #' @examples
 #' \dontrun{
+#' df <- gapminder::gapminder
 #' get_vars_df(df)
 #' get_vars_meta(meta_tbl)
 #' get_factors_df(df)
@@ -230,12 +230,14 @@ get_vars_df <- function(df){
 }
 
 #' @inherit get_vars_df
+#' @param meta_tbl a metadata table associated with df
 #' @export
 get_vars_meta <- function(meta_tbl){
     meta_tbl$attributeName
 }
 
 #' @inherit get_vars_df
+#' @param meta_tbl a metadata table associated with df
 #' @export
 get_factors_meta <- function(meta_tbl){
     meta_tbl$attributeName[meta_tbl$columnClasses == "factor"]

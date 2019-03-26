@@ -17,6 +17,8 @@ factors (will only apply to new columns)}
 
 \item{sep}{separator used to separate codes and definitions for each level in
 the metadata table (must be the same used throughout meta_tbl)}
+
+\item{overwrite}{logical. Whether to overwrite already existing metadata entries}
 }
 \value{
 an updated meta_tbl with rows added for new df columns and any
@@ -31,8 +33,7 @@ remove any deprecated rows which do not match columns in the dataset.
 \dontrun{
 library(gapminder)
 df <- gapminder::gapminder
-meta_tbl <- readr::read_csv(file.path(here::here("inst", "extdata",
-                                                 "gapminder_meta.csv")))
+meta_tbl <- readr::read_csv(system.file("extdata", "gapminder_meta.csv", package = "metadatar"))
 # update metadata for factor columns from levels
 mt_update_factors(df, meta_tbl, overwrite = F)
 # update metadata for columns indicated as factors in the metadata table
