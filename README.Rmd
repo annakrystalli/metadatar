@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 ```
 # metadatar
 
+[![Travis build status](https://travis-ci.org/annakrystalli/metadatar.svg?branch=master)](https://travis-ci.org/annakrystalli/metadatar) [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 The goal of metadatar is to help produce minimum metadata files to document datasets in simple formats that can form building blocks of more complex metadata formats (eg. EML, rdf). 
 
 ## Installation
