@@ -18,3 +18,9 @@ a character string descriptive label of the variable
 Create a more descriptive label, including units where appropriate, for a
 variable from information in the metadata table.
 }
+\examples{
+\dontrun{
+meta_df <- readr::read_csv(system.file("extdata", "gapminder_meta.csv", package="metadatar"))
+mt_label(meta_df, var = "gdpPercap")
+}
+}

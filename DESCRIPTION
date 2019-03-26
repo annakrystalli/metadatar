@@ -7,10 +7,17 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+SystemRequirements:	udunits-2
 Suggests: 
-    gapminder
+    gapminder,
+    readr,
+    testthat,
+    here,
+    dplyr
 URL: https://github.com/annakrystalli/metadatar
 BugReports: https://github.com/annakrystalli/metadatar/issues
 RoxygenNote: 6.0.1
 Imports: 
-    tibble (>= 1.4.2)
+    tibble (>= 1.4.2),
+    magrittr,
+    units
