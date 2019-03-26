@@ -1,3 +1,4 @@
+^dev$
 ^\.travis\.yml$
 ^metadatar\.Rproj$
 ^\.Rproj\.user$
