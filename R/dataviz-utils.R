@@ -9,6 +9,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' meta_df <- readr::read_csv(system.file("extdata", "gapminder_meta.csv", package="metadatar"))
+#' mt_label(meta_df, var = "gdpPercap")
+#' }
 mt_label <- function(meta_df, var){
     if(!var %in% meta_df$attributeName){
         stop("var not a valid attributeName")
